@@ -126,49 +126,46 @@ int main()
 	if((chLower(ch))&&((p % 2) == 0))
 		*ch = *ch - 32;
  }
+ 
+ /*
+ *  Function: rmvowel
+ *  ch: pointer to a character read in from rbuffer.
+ * 	vval: flag marked as 1 whenever the value of ch
+ * 	Marks flag vval as 1 if the value pointed at by ch is a vowel.
+ */
 void rmvowel(int * ch, unsigned short * vval)
 {
 		switch(*ch)
 		{
 			case 'A':
 				*vval = 1;
-//				*ch = IGNORE_VOWEL;
 				break;
 			case 'E':
 				*vval = 1;
-//				*ch = IGNORE_VOWEL;
 				break;
 			case 'I':
 				*vval = 1;
-//				*ch = IGNORE_VOWEL;
 				break;
 			case 'O':
 				*vval = 1;
-//				*ch = IGNORE_VOWEL;
 				break;
 			case 'U':
 				*vval = 1;
-//				*ch = IGNORE_VOWEL;
 				break;
 			case 'a':
 				*vval = 1;
-//				*ch = IGNORE_VOWEL;
 				break;
 			case 'e':
 				*vval = 1;
-//				*ch = IGNORE_VOWEL;
 				break;
 			case 'i':
 				*vval = 1;
-//				*ch = IGNORE_VOWEL;
 				break;
 			case 'o':
 				*vval = 1;
-//				*ch = IGNORE_VOWEL;
 				break;
 			case 'u':
 				*vval = 1;
-//				*ch = IGNORE_VOWEL;
 				break;
 		}
 		
