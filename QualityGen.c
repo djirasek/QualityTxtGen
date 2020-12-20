@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#define IGNORE_VOWEL 1
 /*
  * Author: Dan Jirasek
  * Program Name: QualityGen.c
@@ -8,6 +9,88 @@
  * reads character by character of file, and writes it to a new altered
  * version of the file. 	
 */
+ int chLower(int * chr);
+ void toCaps(int * c);
+ void toMock(int * ch, unsigned long p);
+ void rmvowel(int * ch, unsigned short * vval);
+ 
+int main() 
+{
+	//create buffers to use for reading and writing
+	FILE * rbuffer, * wbuffer;
+	//strings for existing and new file names, respectively.
+	char ifile[50], ofile[100] = "Quality",
+	 wfilename[100] = "ofiles/", rfilename[100] = "ifiles/";
+	//flag for remove vowel format. Used to ignore a vowel character.
+	unsigned short vwlVal = 0;
+	//prompt user for existing file name
+	printf("Enter file name: ");
+	scanf("%s", ifile);
+	strcat(rfilename, ifile);
+	//if file name could not be found, show error then end the program
+	if((rbuffer = fopen(rfilename, "r")) == NULL)
+	{
+		perror("Error: File not found");
+		return -1;
+	}
+	//could open file for reading, so proceed as normal
+	else
+	{
+		//pos: Tracks the position of the current read in char from file
+		//ch: integer value of character read in from rbuffer
+		unsigned long pos = 0;
+		int ch;
+		char fmt[15];
+		
+		
+		//prompt for the type of format for the new file
+		printf("Enter quality format: \n\t1 for Mock\n\t2 for CAPS\n");
+		printf("\t3 for no vowel format\n");
+		scanf("%s", fmt);
+		
+		//create quality version filename that will be added to ofiles
+		strcat(ofile, ifile);
+		strcat(wfilename, ofile);
+		
+		//create quality version of file to write to
+		wbuffer = fopen(wfilename, "w");
+		
+		// while the end of the original file has not been reached,
+		// read in chars from file and write chars to new file
+		while(feof(rbuffer) == 0)
+		{
+			ch = getc(rbuffer);
+			switch(fmt[0]){
+					case '1':
+						toMock(&ch, pos);
+						break;
+					case '2':
+						toCaps(&ch);
+						break;
+					case '3':
+						rmvowel(&ch, &vwlVal);
+						break;
+					//create mock format if someone entered an invalid 
+					//but still a single character
+					default:
+						toMock(&ch, pos);
+			}
+			pos++;
+			if(vwlVal != 1)
+				putc(ch, wbuffer);
+			//reset vwlVal to not ignore char by default.
+			vwlVal = 0;
+		}
+		//close buffers
+		fclose(rbuffer);
+		fclose(wbuffer);
+		
+		printf("The file %s has been created in ofiles\n", ofile);
+	}
+
+	return 0;
+}
+
 
 /*
  * Function: chLower()
@@ -30,6 +113,7 @@
 	if((chLower(c)))
 		*c = *c - 32;
  }
+
 /*
  *  Function: toMock
  *  ch: value of character as an integer.
@@ -42,71 +126,50 @@
 	if((chLower(ch))&&((p % 2) == 0))
 		*ch = *ch - 32;
  }
- 
- 
-int main() 
+void rmvowel(int * ch, unsigned short * vval)
 {
-	//create buffers to use for reading and writing
-	FILE * rbuffer, * wbuffer;
-	//strings for existing and new file names, respectively.
-	char str[50], wfilename[100];
-	//prompt user for existing file name
-	printf("Enter file name: ");
-	scanf("%s", str);
-	
-	//if file name could not be found, show error then end the program
-	if((rbuffer = fopen(str, "r")) == NULL)
-	{
-		perror("Error: File not found");
-		return -1;
-	}
-	//could open file for reading, so proceed as normal
-	else
-	{
-		//pos: Tracks the position of the current read in char from file
-		//ch: integer value of character read in from rbuffer
-		unsigned long pos = 0;
-		int ch;
-		char fmt[15];
-		
-		
-		//prompt for the type of format for the new file
-		printf("Enter quality format: \n\t1 for Mock\n\t2 for CAPS");
-		scanf("%s", fmt);
-		
-		//create quality version of filename being read from
-		strcpy(wfilename, "Quality");
-		strcat(wfilename, str);
-		
-		//create quality version of file to write to
-		wbuffer = fopen(wfilename, "w");
-		
-		// while the end of the original file has not been reached,
-		// read in chars from file and write chars to new file
-		while(feof(rbuffer) == 0)
+		switch(*ch)
 		{
-			ch = getc(rbuffer);
-			switch(fmt[0]){
-					case '1':
-						toMock(&ch, pos);
-						break;
-					case '2':
-						toCaps(&ch);
-						break;
-					//create mock format if someone entered an invalid 
-					//but still a single character
-					default:
-						toMock(&ch, pos);
-			}
-			pos++;
-			putc(ch, wbuffer);
+			case 'A':
+				*vval = 1;
+//				*ch = IGNORE_VOWEL;
+				break;
+			case 'E':
+				*vval = 1;
+//				*ch = IGNORE_VOWEL;
+				break;
+			case 'I':
+				*vval = 1;
+//				*ch = IGNORE_VOWEL;
+				break;
+			case 'O':
+				*vval = 1;
+//				*ch = IGNORE_VOWEL;
+				break;
+			case 'U':
+				*vval = 1;
+//				*ch = IGNORE_VOWEL;
+				break;
+			case 'a':
+				*vval = 1;
+//				*ch = IGNORE_VOWEL;
+				break;
+			case 'e':
+				*vval = 1;
+//				*ch = IGNORE_VOWEL;
+				break;
+			case 'i':
+				*vval = 1;
+//				*ch = IGNORE_VOWEL;
+				break;
+			case 'o':
+				*vval = 1;
+//				*ch = IGNORE_VOWEL;
+				break;
+			case 'u':
+				*vval = 1;
+//				*ch = IGNORE_VOWEL;
+				break;
 		}
-		//close buffers
-		fclose(rbuffer);
-		fclose(wbuffer);
 		
-		printf("The file %s has been created\n", wfilename);
-	}
-
-	return 0;
 }
