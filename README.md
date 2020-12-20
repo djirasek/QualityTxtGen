@@ -10,6 +10,6 @@ Before running the Quality Text Generator, the original text file has to be plac
 Once you have selected your file and format, the new Quality version of the file will be generated in the "ofiles" directory.
 
 ### TODO:
-- Add a new vowel-free format to select [x]
+- [x] Add a new vowel-free format to select 
 - Add output filenames that reflect the format chosen
 - Add file format selections to choose from when creating the quality output file
