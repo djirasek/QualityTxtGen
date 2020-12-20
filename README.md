@@ -1,5 +1,5 @@
 # **Quality Text Generator**
-Convert Text to QuAlItY or ALL CAPS formats
+Create new versions of text files in QuAlItY, ALL CAPS, or vowel-free formats
 
 
 ## Description
